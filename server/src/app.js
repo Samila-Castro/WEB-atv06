@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const funcionario = require('../services/funcionarios');
-
+// const Usuario = require('../services/usuario');
+const { User } = require('../app/models');    // const Usuario = require('./usuario');
+ 
 
 
 const {
@@ -15,110 +16,14 @@ app.use(cors());
 
 
 
-app.get("/funcionarios", async function (request, response, next) {
-  const { qtde, cargo } = request.query;
-
-
-  try {
-    
-    response.json(await funcionario.getAll(qtde,cargo));
-  } catch (err) {
-    console.error(`Erro ao buscar funcionários`, err.message);
-    next(err);
-  }
-
+app.post('/register', async (req, res) => {
+  const user = await User.create(req.body);
+  res.json(user);
 });
 
-app.get("/funcionarios/:id", async function (request, response, next) {
-  const {
-    id
-  } = request.params;
-
-  try {
-    const result = await funcionario.getById(id);
-    
-    response.json(result[0]);
-
-  } catch (err) {
-    console.error(`Erro ao buscar funcionário`, err.message);
-    next(err);
-  }
-
-});
-
-
-app.post("/funcionarios", async function (request, response, next) {
-
-  try {
-    const {
-      nome,
-      cargo,
-      dataNascimento,
-      dataEntrada
-    } = request.body;
-    const result = await funcionario.create({
-      id: uuid(),
-      nome,
-      cargo,
-      dataNascimento,
-      dataEntrada
-    });
-    response.json(result);
-  } catch (err) {
-    console.error(`Erro ao criar funcionário`, err.message);
-    next(err);
-  }
-});
-
-app.put("/funcionarios/:id", async function (request, response, next) {
-  const {
-    id
-  } = request.params
-  const {
-    nome,
-    cargo,
-    datanascimento,
-    dataentrada
-  } = request.body;
-
-  try {
-
-      const funcionarioToUpdate = { nome,
-          cargo,
-          datanascimento,
-          dataentrada
-        }
-        
-    const result = await funcionario.update(id , funcionarioToUpdate);
-    
-    response.json(result)
-    
-
-
-  } catch (err) {
-    console.error(`Erro ao buscar funcionário`, err.message);
-    next(err);
-  }
-
-});
-
-app.delete("/funcionarios/:id", async function (request, response) {
-  const {
-    id
-  } = request.params
-
-  try {
-    const result = await funcionario.delet(id);
-    
-    response.json(result[0]);
-
-  } catch (err) {
-    console.error(`Erro ao deletar funcionário`, err.message);
-    next(err);
-  }
-
-
-
+app.get('/register', async (req, res) => {
+  const user = await User.findAll();
+  res.json(user);
 });
 
 module.exports = app;
