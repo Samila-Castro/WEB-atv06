@@ -2,6 +2,9 @@
 module.exports = {
   up: (queryInterface, DataTypes) => {
     return queryInterface.createTable('Posts', {
+      userId: {
+        type: DataTypes.INTEGER,
+      },
       id: {
         allowNull: false,
         autoIncrement: true,

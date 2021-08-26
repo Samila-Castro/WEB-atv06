@@ -12,8 +12,8 @@ function getStrategy(){
   return new Strategy(params, async function (payload, done) {
     var user = await User.findByPk(payload.id);
 
-    if (user.length ) {
-      return done(null, { id: user[0].id, type: user[0].type });
+    if (user !== null ) {
+      return done(null, { id: user.id, teste:"samila" });
     }
     return done(new Error("User not found"), null);
     

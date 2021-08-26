@@ -37,6 +37,11 @@ app.post('/session', async function(req, res, next) {
   }
 });
 
+app.post('/post', auth.authenticate(), async(req,res)=>{
+
+  res.json(req.user);
+});
+
 app.post('/user', async (req, res) => {
   const user = await User.create(req.body);
   res.json(user);
@@ -44,6 +49,7 @@ app.post('/user', async (req, res) => {
 
 app.get('/user', async (req, res) => {
   const user = await User.findAll();
+  console.log(req);
   res.json(user);
 });
 
