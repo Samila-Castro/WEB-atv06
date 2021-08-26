@@ -12,7 +12,7 @@ module.exports = {
         type: DataTypes.INTEGER,
       },
       texto: {
-        allowNull: false,
+        
         type: DataTypes.STRING,
       },
       // password: {
