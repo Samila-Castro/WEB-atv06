@@ -1,17 +1,17 @@
 'use strict';
 module.exports = {
   up: (queryInterface, DataTypes) => {
-    return queryInterface.createTable('Posts', {
+    return queryInterface.createTable('Comments', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      texto: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
+      // texto: {
+      //   allowNull: false,
+      //   type: DataTypes.STRING,
+      // },
       // password: {
       //   allowNull: false,
       //   type: DataTypes.STRING,
@@ -28,6 +28,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('Posts');
+    return queryInterface.dropTable('Comments');
   }
 };
