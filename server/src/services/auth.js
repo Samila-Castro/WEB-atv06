@@ -15,7 +15,7 @@ function getStrategy(){
     if (user !== null ) {
       return done(null, { id: user.id, teste:"samila" });
     }
-    return done(new Error("User not found"), null);
+    return done(new Error("Usuário não autorizado"), null);
     
   });
 }

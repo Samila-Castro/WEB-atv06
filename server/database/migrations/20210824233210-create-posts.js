@@ -2,7 +2,7 @@
 module.exports = {
   up: (queryInterface, DataTypes) => {
     return queryInterface.createTable('Posts', {
-      userId: {
+      owner: {
         type: DataTypes.INTEGER,
       },
       id: {
@@ -19,14 +19,14 @@ module.exports = {
       //   allowNull: false,
       //   type: DataTypes.STRING,
       // },
-      // createdAt: {
-      //   allowNull: false,
-      //   type: DataTypes.DATE,
-      // },
-      // updatedAt: {
-      //   allowNull: false,
-      //   type: DataTypes.DATE,
-      // },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
     });
   },
 
