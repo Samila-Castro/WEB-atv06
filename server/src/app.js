@@ -47,24 +47,24 @@ app.post('/post', auth.authenticate(), async(req,res)=>{
 
 });
 
-app.post('/user', async (req, res) => {
+app.post('/user', auth.authenticate(),async (req, res) => {
   const user = await User.create(req.body);
   res.json(user); 
 });
 
-app.get('/user', async (req, res) => {
+app.get('/user', auth.authenticate(),async (req, res) => {
   const user = await User.findAll();
   console.log(req);
   res.json(user);
 });
 
-app.get('/post', async (req, res) => {
+app.get('/post', auth.authenticate(),async (req, res) => {
   const post = await Post.findAll();
   console.log(req);
   res.json(post);
 });
 
-app.post('/comment', auth.authenticate(), async(req,res)=>{
+app.post('/comment', auth.authenticate(),auth.authenticate(), async(req,res)=>{
 
   const data = { ...req.body , owner: req.user.id};
   const comment = await Comment.create(data);
@@ -73,13 +73,13 @@ app.post('/comment', auth.authenticate(), async(req,res)=>{
 
 });
  
-app.get('/comment', async (req, res) => {
+app.get('/comment', auth.authenticate(),async (req, res) => {
   const comment = await Comment.findAll();
   console.log(req);
   res.json(comment);
 });
 
-app.get('/comment/:postId', async (req, res) => {
+app.get('/comment/:postId', auth.authenticate(),async (req, res) => {
   const { postId } = req.params
   const comment = await Comment.findAll( {where: { postId } });
   console.log(req);
