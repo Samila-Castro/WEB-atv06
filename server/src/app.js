@@ -54,13 +54,11 @@ app.post('/user', auth.authenticate(),async (req, res) => {
 
 app.get('/user', auth.authenticate(),async (req, res) => {
   const user = await User.findAll();
-  console.log(req);
   res.json(user);
 });
 
 app.get('/post', auth.authenticate(),async (req, res) => {
   const post = await Post.findAll();
-  console.log(req);
   res.json(post);
 });
 
@@ -75,14 +73,12 @@ app.post('/comment', auth.authenticate(),auth.authenticate(), async(req,res)=>{
  
 app.get('/comment', auth.authenticate(),async (req, res) => {
   const comment = await Comment.findAll();
-  console.log(req);
   res.json(comment);
 });
 
 app.get('/comment/:postId', auth.authenticate(),async (req, res) => {
   const { postId } = req.params
   const comment = await Comment.findAll( {where: { postId } });
-  console.log(req);
   res.json(comment);
 });
 
