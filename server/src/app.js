@@ -67,7 +67,7 @@ app.get('/post', auth.authenticate(),async (req, res) => {
   res.json(await Promise.all(postsWithComments));
 });
 
-app.post('/comment', auth.authenticate(),auth.authenticate(), async(req,res)=>{
+app.post('/comment', auth.authenticate(), async(req,res)=>{
 
   const data = { ...req.body , owner: req.user.id};
   const comment = await Comment.create(data);
