@@ -2,7 +2,7 @@
 module.exports = {
   up: (queryInterface, DataTypes) => {
     return queryInterface.createTable('Comments', {
-      userId: {
+      owner: {
         
         type: DataTypes.INTEGER,
       },
@@ -19,6 +19,14 @@ module.exports = {
       texto: {
         allowNull: false,
         type: DataTypes.STRING,
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
       },
       
     });

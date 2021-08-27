@@ -6,7 +6,8 @@ const jwt = require("./services/jwt");
 
 
 // const Usuario = require('../services/usuario');
-const { User, Post } = require('../app/models');    // const Usuario = require('./usuario');
+const { User, Post, Comment } = require('../app/models');    // const Usuario = require('./usuario');
+  // const Usuario = require('./usuario');
  
 
 
@@ -61,6 +62,28 @@ app.get('/post', async (req, res) => {
   const post = await Post.findAll();
   console.log(req);
   res.json(post);
+});
+
+app.post('/comment', auth.authenticate(), async(req,res)=>{
+
+  const data = { ...req.body , owner: req.user.id};
+  const comment = await Comment.create(data);
+  res.json(comment);
+  
+
+});
+ 
+app.get('/comment', async (req, res) => {
+  const comment = await Comment.findAll();
+  console.log(req);
+  res.json(comment);
+});
+
+app.get('/comment/:postId', async (req, res) => {
+  const { postId } = req.params
+  const comment = await Comment.findAll( {where: { postId } });
+  console.log(req);
+  res.json(comment);
 });
 
 module.exports = app;
