@@ -58,8 +58,13 @@ app.get('/user', auth.authenticate(),async (req, res) => {
 });
 
 app.get('/post', auth.authenticate(),async (req, res) => {
-  const post = await Post.findAll();
-  res.json(post);
+  const posts = await Post.findAll();
+  const postsWithComments =  posts.map(async post=>({
+    id: post.id,
+    texto:post.texto,
+    comments: await Comment.findAll( {where: { postId: post.id } })
+  }))
+  res.json(await Promise.all(postsWithComments));
 });
 
 app.post('/comment', auth.authenticate(),auth.authenticate(), async(req,res)=>{

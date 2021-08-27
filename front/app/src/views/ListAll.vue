@@ -1,26 +1,31 @@
 <template>
 
   <div>
-    <el-row>
-      <el-col :span="8" v-for=" post in posts" :key="post.id">
-        <el-card :body-style="{ padding: '0px' }">
-          <span>{{post.texto}}</span>
-          <!-- <img
-            src="https://4.bp.blogspot.com/-_QJpXegi9wQ/W-7Hgray3II/AAAAAAAAaxQ/BzqbVH5E2iAkQwgxUVK9rYEL23rO7ggeACLcBGAs/s1600/wallpaper-tumblr-para-celular%2B%252836%2529.jpg"
-            class="image"> -->
-          <div style="padding: 14px;">
-            <div class="bottom clearfix">
+    <!-- <el-row> -->
+    <div class="container" v-for=" post in posts" :key="post.id">
+      <el-card class="card" :body-style="{ padding: '0px' }">
+        <span>{{post.texto}}</span>
+        <img
+          src="https://images.unsplash.com/photo-1593642634402-b0eb5e2eebc9?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+          class="image">
+        <div style="padding: 14px;">
+          <div class="bottom clearfix">
 
 
-              <el-button icon="el-icon-chat-round" @click="open" type="text" class="button">Comentar
-              </el-button>
-            </div>
+            <el-button icon="el-icon-chat-round" @click="open(post.id)" type="text" class="button">Comentar
+            </el-button>
           </div>
+        </div>
+        <div class="infinite-list content-comment" v-infinite-scroll="load" style="overflow:auto;">
+          <div v-for="comment in post.comments" :key="comment.id">
+            {{comment.texto }}
+          </div>
+        </div>
 
-        </el-card>
-      </el-col>
-    </el-row>
-     
+      </el-card>
+    </div>
+    <!-- </el-row> -->
+
 
     <router-link to="/">Fazer post</router-link>
   </div>
@@ -34,7 +39,7 @@
         posts: [],
         currentDate: new Date(),
         centerDialogVisible: false,
-        
+
 
       }
     },
@@ -56,15 +61,27 @@
 
       ,
     methods: {
-         open() {
+      async reloadPosts() {
+        const response = await api.get('/post')
+
+        this.posts = response.data;
+      },
+
+      async open(postId) {
         this.$prompt('Please input your e-mail', 'Comentário', {
           confirmButtonText: 'OK',
           cancelButtonText: 'Cancel',
-        }).then(({ value }) => {
-
-          const response =  api.post('/comment', this.value);
+        }).then(async ({
+          value
+        }) => {
+          console.log(value);
+          const response = await api.post('/comment', {
+            texto: value,
+            postId
+          });
+          await this.reloadPosts()
           console.log(response.data);
-
+        
           this.$message({
             type: 'success',
             message: 'Seu comentário foi cadastrado' + value
@@ -73,8 +90,9 @@
           this.$message({
             type: 'info',
             message: 'Input canceled'
-          });       
+          });
         });
+      
       },
       handleById(id) {
         this.$router.push(`/listOne/${id}`);
@@ -130,7 +148,8 @@
   }
 
   .image {
-    width: 100%;
+
+    height: 200px;
     display: block;
   }
 
@@ -142,5 +161,17 @@
 
   .clearfix:after {
     clear: both
+  }
+
+  .card {
+    width: 40%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .content-comment {
+    height: 80px;
+    border: solid 1px #4ba4ff69;
   }
 </style>
