@@ -30,6 +30,8 @@
       </el-form-item>
     </el-form>
      <router-link to="/listar-all">Listar todos</router-link>
+     <router-link to="/login">To login</router-link>
+
   </div>
   
 

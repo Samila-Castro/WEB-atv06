@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import ListAll from '../views/ListAll.vue'
 import Edit from '../views/Edit.vue'
 import ListById from '../views/ListById.vue'
+import Login from '../views/Login.vue'
 
 
 const routes = [
@@ -27,6 +28,11 @@ const routes = [
     name: 'ListById',
     component: ListById
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  }
 
 
 ];
