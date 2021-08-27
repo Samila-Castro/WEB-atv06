@@ -11,6 +11,7 @@
             <label for="">
                 <input type="password" id="senha" placeholder="Password" v-model="form.password" required />
             </label>
+           <button type="submit">Sign in</button>
 
         </form>
 
@@ -35,7 +36,7 @@
                     console.log(result.data);
                     localStorage.setItem('@atividade-login', JSON.stringify(result.data));
                     alert("Login com sucesso!")
-                    this.$router.push(`/entidade-list`);
+                    this.$router.push(`/`);
                 } catch (error) {
                     console.log(error);
                     alert("Erro ao tentar login!")
