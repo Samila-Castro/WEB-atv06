@@ -11,6 +11,8 @@
             <label for="">
                 <input type="password" id="senha" placeholder="Password" v-model="form.password" required />
             </label>
+              
+
            <button type="submit">Sign in</button>
 
         </form>

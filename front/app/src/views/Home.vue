@@ -1,36 +1,17 @@
 <template>
-  <div class="form">
+  <div>
+  <div class="cadastro">
+      <h2>Register a post</h2>
+      <form class="form" @submit="(e) => submitForm(e)">
+        <label> 
+          <input type="text" v-model="post.texto" id="texto"  />
+        </label>
+        <button type="submit">Registrar post</button>
+      </form>
+    </div>
    
-    <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-      <el-form-item label="Nome" prop="nome">
-        <el-input v-model="form.nome"></el-input>
-      </el-form-item>
+      <router-link to="/listar-all">To ListAll</router-link>
 
-      <el-form-item label="Cargo" prop="cargo">
-        <el-input v-model="form.cargo"></el-input>
-      </el-form-item>
-
-      <el-form-item label="Nascimento" prop="dataNascimento">
-        <el-input v-model="form.dataNascimento"></el-input>
-      </el-form-item>
-
-      <el-form-item label="Entrada" prop="dataEntrada">
-        <el-input v-model="form.dataEntrada"></el-input>
-      </el-form-item>
-
-      <!-- <el-form-item label="Data de venda" prop="date">
-        <el-col :span="11">
-          <el-date-picker type="date" placeholder="Pick a date" v-model="form.date" style="width: 100%;">
-          </el-date-picker>
-        </el-col>
-
-      </el-form-item> -->
-      <el-form-item>
-        <el-button type="primary" @click="submitForm()">Criar</el-button>
-      </el-form-item>
-    </el-form>
-     <router-link to="/listar-all">Listar todos</router-link>
-     <router-link to="/login">To login</router-link>
 
   </div>
   
@@ -48,53 +29,21 @@
     name: 'Home',
     data() {
       return {
-        form: {
-          nome: '',
-          cargo: '',
-          dataNascimento: '',
-          dataEntrada: '',
-          
+        post: {
+          texto: '',
 
         },
-        rules: {
-          nome: [{
-              required: true,
-              message: 'Por favor, adicione o nome',
-              trigger: 'blur'
-            },
-
-          ],
-          cargo: [{
-            required: true,
-            message: 'Please select Activity zone',
-            trigger: 'change'
-          }],
-          dataNascimento: [{
-            required: true,
-            message: 'Please select Activity zone',
-            trigger: 'change'
-          }],
-          dataEntrada: [{
-            required: true,
-            message: 'Please select Activity zone',
-            trigger: 'change'
-          }],
-         
-
-        }
 
       }
     },
     methods: {
-       submitForm() {
-        this.$refs.form.validate(async (valid) => {
-          if (valid) {
-            await api.post('/funcionarios', this.form)
+      async submitForm() {
+       
+           await  api.post('/post', this.post)
             alert("Cadastrado com sucesso!");
             this.resetForm()
 
-          } else return false;
-        });
+         
       },
       resetForm() {
         this.$refs.form.resetFields();
@@ -104,9 +53,21 @@
 </script>
 <style>
   .form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 100px;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin: 30px;
+  }
+
+  input {
+    border-radius: 10px;
+    width: 300px;
+    margin: 5px;
+    height: 20px;
+    border: none;
+    font-size: 15px;
+    padding: 15px;
+    background-color: #ecf0f1;
   }
 </style>
