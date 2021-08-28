@@ -27,7 +27,7 @@
     <!-- </el-row> -->
 
 
-    <router-link to="/">Fazer post</router-link>
+    <router-link to="/cadastro">Fazer post</router-link>
   </div>
 </template>
 
@@ -119,7 +119,15 @@
   }
 </script>
 
-<style>
+<style scoped>
+.container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        
+
+    }
   .btn {
     width: 200px;
     display: flex;

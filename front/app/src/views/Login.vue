@@ -38,7 +38,7 @@
                     console.log(result.data);
                     localStorage.setItem('@atividade-login', JSON.stringify(result.data));
                     alert("Login com sucesso!")
-                    this.$router.push(`/`);
+                    this.$router.push(`/listar-all`);
                 } catch (error) {
                     console.log(error);
                     alert("Erro ao tentar login!")
@@ -67,6 +67,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
 
     }
 

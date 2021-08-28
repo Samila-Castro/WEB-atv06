@@ -20,7 +20,7 @@
 
 </template>
 
-<script>
+<script scoped>
   // @ is an alias to /src
   // import HelloWorld from '@/components/HelloWorld.vue'
   import api from "../services/api"
